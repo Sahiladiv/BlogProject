@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form class="modal-content animate" method="POST">
+
+        {% csrf_token %}
+        
+        <div class="imgcontainer">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+          <img src="img_avatar2.png" alt="Avatar" class="avatar">
+        </div>
+    
+        <div class="container">
+          <label for="uname"><b>Username</b></label>
+          <input type="text" placeholder="Enter Username" name="username" data-catid = {{Hello.Hello}} required>
+    
+          <label for="psw"><b>Password</b></label>
+          <input type="password" placeholder="Enter Password" name="password">
+            
+          <button type="submit" class="likebutton">Login</button>
+          <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+          </label>
+        </div>
+    
+        <div class="container" style="background-color:#f1f1f1">
+          <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+          <span class="psw">Forgot <a href="#">password?</a></span>
+        </div>
+      </form>
+
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+      <script type="text/javascript">
+      $('.likebutton').click(function(){
+        
+      var catid;
+      //catid = $(this).attr("data-catid");
+      catid = 1
+      $.ajax(
+      {
+          type:"POST",
+          url: "/blogs/demo/",
+          data:{
+                   post_id: catid
+          },
+          success: function( data ) 
+          {
+              $( '#like'+ catid ).remove();
+              $( '#message' ).text(data);
+          }
+       })
+
+  });
+  </script>
+</body>
+</html>
